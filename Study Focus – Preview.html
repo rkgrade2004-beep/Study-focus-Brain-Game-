@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Focus – Preview</title>
+<style>
+:root{--bg:#eef2ef;--ink:#12332f;--card:#fff;--mut:#5b716d;--acc:#e8d44d;--line:#d3ddd9;--bad:#c62828;--ok:#2e7d32;--off:#c9d8d3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1f1d;--ink:#e9f1ee;--card:#14302c;--mut:#93aaa5;--line:#24453f;--off:#2a4a44}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.45}
+#app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:84px}
+.hero{height:170px;background:linear-gradient(135deg,#12332f,#2f7a6b);color:#fff;display:flex;align-items:flex-end;padding:16px 18px;font-weight:700;font-size:22px;line-height:1.25}
+.hero small{display:block;font-weight:400;font-size:14px;opacity:.85}
+.pad{padding:12px 16px 24px}
+h2{font-size:22px;margin:6px 0 2px}
+p.m{color:var(--mut);margin:0 0 8px;font-size:14px}
+.card{background:var(--card);border-radius:18px;padding:14px 16px;margin-top:12px}
+.stats{display:flex;gap:8px}
+.stat{flex:1;background:var(--card);border-radius:16px;padding:12px 6px;text-align:center}
+.stat b{display:block;font-size:21px}.stat span{font-size:12px;color:var(--mut)}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--ink);width:0}
+.clock{font-size:50px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;margin:8px 0}
+.chip{flex:1;padding:10px 0;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:600}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn{display:block;width:100%;margin-top:10px;padding:14px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font:inherit;font-weight:700;font-size:17px}
+.btn.acc{background:var(--acc);color:#12332f}.btn.w{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible,.chip:focus-visible,nav button:focus-visible,.ch:focus-visible,.cell:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.ch{display:flex;align-items:center;gap:12px;background:var(--card);border:0;border-radius:16px;padding:10px 12px;margin-top:8px;width:100%;color:var(--ink);font:inherit;text-align:left}
+.logo{width:46px;height:46px;border-radius:50%;color:#fff;display:grid;place-items:center;font-weight:800;font-size:20px;flex:none}
+.ch span{flex:1;font-weight:700}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;max-width:480px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid var(--line)}
+nav button{flex:1;border:0;background:none;padding:14px 0;font:inherit;font-size:13px;font-weight:700;color:var(--ink)}
+nav button[aria-current=true]{background:var(--acc);color:#12332f}
+.grid{display:grid;gap:8px;justify-content:center;margin-top:14px}
+.cell{border:0;border-radius:14px;background:var(--off);padding:0}
+.big{font-size:38px;font-weight:800;text-align:center;margin:14px 0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts .btn{margin:0;background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:20px}
+input.n{width:100%;font-size:28px;text-align:center;padding:10px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.pad2{height:280px;border-radius:20px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:22px;text-align:center;background:var(--ink);margin-top:14px;cursor:pointer;user-select:none;padding:12px}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;text-align:center}
+#toast.on{opacity:1}
+.note{border-left:4px solid var(--acc);padding:6px 12px;margin-top:14px;font-size:13px;color:var(--mut)}
+
+.hero{background:linear-gradient(135deg,#12332f 0%,#1d6b5e 55%,#7b6f10 130%)}
+.bar i{background:linear-gradient(90deg,#7b2ff7,#f107a3,#ff8008)}
+nav button[aria-current=true]{background:linear-gradient(135deg,#f9d423,#ff8008);color:#12332f}
+.gt{font-size:32px;font-weight:900;letter-spacing:.5px;margin:6px 0 2px;background:linear-gradient(90deg,#7b2ff7,#f107a3,#ff8008);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gc{display:flex;align-items:center;gap:12px;border-radius:20px;padding:16px;margin-top:12px;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.ge{font-size:38px;flex:none}
+.gb{flex:1;display:flex;flex-direction:column;min-width:0}
+.gb b{font-size:19px;font-weight:800}
+.gb span{font-size:13px;opacity:.93}
+.gb i{font-style:normal;font-size:12px;font-weight:700;margin-top:6px;background:rgba(255,255,255,.25);align-self:flex-start;padding:2px 10px;border-radius:999px}
+.gp{width:50px;height:50px;border-radius:50%;border:0;background:#fff;color:#12332f;font-size:18px;font-weight:800;flex:none}
+.gp:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.gh{border-radius:20px;padding:18px;color:#fff;font-weight:900;font-size:24px;display:flex;gap:12px;align-items:center;margin:14px 0 4px;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+#gm .btn{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+#gm .opts .btn{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+#gm .cell{font-weight:800;color:var(--ink)}
+</style>
+</head>
+<body>
+<div id="app"><div id="view"></div></div>
+<nav id="nav"></nav>
+<div id="toast" role="status"></div>
+<script>
+var $=function(s){return document.querySelector(s)};
+var S={pts:0,streak:0,days:0,tm:0,best:{}};
+try{Object.assign(S,JSON.parse(localStorage.getItem('sf')||'{}'))}catch(e){}
+function save(){try{localStorage.setItem('sf',JSON.stringify(S))}catch(e){}}
+function toast(t){var e=$('#toast');e.textContent=t;e.className='on';clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=''},2200)}
+function best(k,v,low){if(!S.best[k]||(low?v<S.best[k]:v>S.best[k])){S.best[k]=v;save()}}
+var tabs=['🏠 Home','▶ YouTube','🎮 Games','⚙ Apps'],cur=0,mins=180,T={end:0,len:0,iv:0},alive=false,ivs=[];
+var chans=['Physics Wallah','Vedantu','Unacademy','Khan Academy','BYJU’S','Magnet Brains','StudyIQ','Doubtnut','Apni Kaksha','LearnoHub','Competition Wallah','Eduncle','Toppr'];
+var cols=['#e53935','#1e88e5','#8e24aa','#f4511e','#00897b','#3949ab','#6d4c41'];
+var apps=['Instagram','Snapchat','Facebook','Games','YouTube (baaki channels)'];
+function clean(){alive=false;ivs.forEach(clearInterval);ivs=[]}
+function to(f,ms){setTimeout(function(){if(alive)f()},ms)}
+function go(i){clean();cur=i;[home,yt,gamesList,appsPage][i]();
+$('#nav').innerHTML=tabs.map(function(t,k){return'<button '+(k===i?'aria-current="true"':'')+' data-t="'+k+'">'+t+'</button>'}).join('');
+window.scrollTo(0,0)}
+$('#nav').onclick=function(e){var t=e.target.dataset.t;if(t!==undefined)go(+t)};
+function pad(n){return String(n).padStart(2,'0')}
+
+function home(){
+var lvl=Math.floor(S.pts/300)+1,ti=['Shuruaati','Focused','Mehnati','Scholar','Topper','Legend'];
+$('#view').innerHTML='<div class="hero"><div>Study Focus<small>Padhai pehle, baaki baad mein.</small></div></div><div class="pad">'+
+'<div class="stats"><div class="stat"><b>⭐ '+S.pts+'</b><span>Points</span></div><div class="stat"><b>🔥 '+S.streak+'</b><span>Din streak</span></div><div class="stat"><b>'+S.days+'</b><span>Total din</span></div></div>'+
+'<div class="card"><b style="font-size:18px">Level '+lvl+' · '+ti[Math.min(lvl-1,5)]+'</b><div class="bar"><i style="width:'+((S.pts%300)/3)+'%"></i></div><span class="m" style="font-size:13px;color:var(--mut)">Next level tak '+(300-S.pts%300)+' points · Total padhai: '+Math.floor(S.tm/60)+'h '+S.tm%60+'m</span></div>'+
+'<div class="card"><div class="clock" id="clk">00:00:00</div><p class="m" id="st" style="text-align:center">Time chuno aur Focus shuru karo</p>'+
+'<div class="chips" id="chips"></div><button class="btn acc" id="go">Focus shuru karo</button></div>'+
+'<div class="note">Ye browser preview hai. Asli app mein Instagram jaise apps phone par sach mein block hote hain.</div></div>';
+var c=$('#chips');[[120,'2h'],[180,'3h'],[240,'4h'],[300,'5h'],[0.17,'Demo']].forEach(function(a){var b=document.createElement('button');b.className='chip';b.textContent=a[1];b.setAttribute('aria-pressed',mins===a[0]);b.onclick=function(){mins=a[0];$('#st').textContent=a[0]<1?'Demo: 10 second':'Chuna: '+a[1]+' ('+a[0]+' points milenge)';[].forEach.call(c.children,function(x){x.setAttribute('aria-pressed',x===b)})};c.appendChild(b)});
+$('#go').onclick=function(){if(T.end>Date.now())return toast('🔒 Focus chal raha hai');T.end=Date.now()+mins*60000;T.len=mins<1?10:mins;run()};
+if(T.end>Date.now())run()}
+function run(){var iv=setInterval(function(){var l=T.end-Date.now(),c=$('#clk');
+if(!c){clearInterval(iv);return}
+if(l<=0){clearInterval(iv);T.end=0;S.pts+=T.len;S.tm+=T.len;S.days+=1;S.streak+=1;save();toast('🎉 Session poora! +'+T.len+' points');go(0);return}
+var s=Math.floor(l/1000);c.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60);$('#st').textContent='Focus ON 🔒 '+apps.length+' apps blocked'},250);ivs.push(iv)}
+
+function yt(){$('#view').innerHTML='<div class="pad"><h2>▶ YouTube study channels</h2><p class="m">Focus ke time sirf ye channels khulenge. Kisi par tap karke kholo.</p><button class="btn" data-x="s">🔍 Study search</button><button class="btn w" data-x="a">➕ Channel jodo</button>'+
+chans.map(function(n,i){return'<button class="ch" data-n="'+n+'"><div class="logo" style="background:'+cols[i%7]+'">'+n[0]+'</div><span>'+n+'</span>▶</button>'}).join('')+'</div>';
+$('#view').onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.n)toast('YouTube mein '+b.dataset.n+' khulega');else if(b.dataset.x)toast('Asli app mein yahan search box khulta hai')}}
+
+function appsPage(){$('#view').innerHTML='<div class="pad"><h2>⚙ Block hone wale apps</h2><div class="card">'+apps.map(function(a){return'<div style="padding:4px 0">🔒 '+a+'</div>'}).join('')+'</div><button class="btn" data-x="1">Apps chuno</button><button class="btn w" data-x="1">🖼 Home ki photo badlo</button><div class="card"><b>✅ Accessibility ON hai</b><p class="m">Blocking ke liye Accessibility mein Study Focus ON hona zaroori hai.</p></div></div>';
+$('#view').onclick=function(e){if(e.target.dataset.x)toast('Asli app mein ye phone ki list kholta hai')}}
+
+var G=[['seq','🧩','Pattern Yaad Rakho','Jo pattern chamke wahi dohrao. Memory strong hoti hai.',pat,'#7b2ff7','#f107a3'],
+['mul','✖️','Multiply Master','Pahade aur guna ke sawal. 10 mein 8 sahi to level up.',mul,'#4776e6','#8e54e9'],
+['math','➕','Tez Hisaab','30 second mein jitne sawal ho sake.',mth,'#c0392b','#f39c12'],
+['match','🃏','Card Match','Jode milao. Level ke saath cards badhte hain.',mtc,'#ee0979','#ff6a00'],
+['ord','🔢','Number Order','1 se shuru karke order mein tap karo, jaldi!',ord,'#134e5e','#3a9d6b'],
+['num','🧮','Number Yaad Rakho','Number dekho, chhupne ke baad likho.',numg,'#0f8b7d','#2bbf6b'],
+['odd','🎨','Alag Rang Pehchano','Ek dabba thoda alag hai. Focus badhta hai.',odd,'#2193b0','#5b5fc7'],
+['react','⚡','Reflex Test','Hara hote hi tap karo.',rea,'#b71c2e','#ef473a']];
+function gamesList(){$('#view').innerHTML='<div class="pad"><h2 class="gt">Brain Games</h2><p class="m">Dimag ke games. Padhai ke beech 5 minute ka break lo, level clear karo.</p>'+
+G.map(function(g,i){var b=S.best[g[0]],bt=b?(g[0]==='react'?'Best: '+b+' ms':g[0]==='math'?'Best score: '+b:'Best level: '+b):'Abhi khela nahi';
+return'<div class="gc" style="background:linear-gradient(135deg,'+g[5]+','+g[6]+')"><div class="ge">'+g[1]+'</div><div class="gb"><b>'+g[2]+'</b><span>'+g[3]+'</span><i>'+bt+'</i></div><button class="gp" data-g="'+i+'" aria-label="'+g[2]+' khelo">▶</button></div>'}).join('')+'</div>';
+$('#view').onclick=function(e){var b=e.target.closest('button');if(b&&b.dataset.g!==undefined)open(+b.dataset.g)}}
+function open(i){clean();alive=true;$('#view').onclick=null;var g=G[i];
+$('#view').innerHTML='<div class="pad"><button class="btn w" id="bk" style="margin-top:0">← Wapas</button><div class="gh" style="background:linear-gradient(135deg,'+g[5]+','+g[6]+')"><span style="font-size:34px">'+g[1]+'</span>'+g[2]+'</div><div class="card" id="gm"></div></div>';
+var gm=$('#gm');gm.style.setProperty('--g1',g[5]);gm.style.setProperty('--g2',g[6]);gm.style.setProperty('--acc',g[6]);
+$('#bk').onclick=function(){go(2)};g[4](gm)}
+
+function mul(el){var lv=S.best.mul?Math.min(S.best.mul+1,10):1,q=0,ok=0,a=2,b=2,busy=false;
+el.innerHTML='<p class="m" id="i" style="font-weight:700;font-size:17px;color:var(--ink)"></p><div class="big" id="q"></div><input class="n" id="e" type="tel" inputmode="numeric" placeholder="?" aria-label="Jawab"><button class="btn" id="c">Check</button><p class="m" id="f" style="text-align:center;margin-top:10px;font-size:16px"></p>';
+var I=el.querySelector('#i'),Q=el.querySelector('#q'),E=el.querySelector('#e'),F=el.querySelector('#f');
+function nx(){busy=false;if(q>=10){busy=true;if(ok>=8){best('mul',lv);F.textContent='Level '+lv+' clear! '+ok+'/10 🎉';lv=Math.min(lv+1,10)}else F.textContent=ok+'/10. 8 sahi chahiye, dobara!';q=0;ok=0;to(nx,1600);return}
+var m=3+lv;a=2+Math.floor(Math.random()*(m-1));b=2+Math.floor(Math.random()*9);Q.textContent=a+' × '+b+' = ?';I.textContent='Level '+lv+'  ·  Sawal '+(q+1)+'/10  ·  Sahi '+ok;E.value='';E.focus()}
+function chk(){if(busy||E.value==='')return;if(+E.value===a*b){ok++;F.textContent='✅ Sahi!'}else F.textContent='❌ '+a+' × '+b+' = '+a*b;q++;nx()}
+el.querySelector('#c').onclick=chk;E.onkeydown=function(e){if(e.key==='Enter')chk()};nx()}
+
+function mtc(el){var lv=1,em=['🐶','🐱','🦊','🐼','🐸','🦁','🐵','🐯','🐙','🦄','🍎','🚀'];
+el.innerHTML='<p class="m" id="i" style="text-align:center;font-weight:700;font-size:17px;color:var(--ink)"></p><div class="grid" id="g"></div>';
+var I=el.querySelector('#i'),g=el.querySelector('#g');
+function rd(){var p=Math.min(12,3+lv),d=em.slice(0,p).concat(em.slice(0,p)).sort(function(){return Math.random()-.5}),sz=Math.floor((Math.min(window.innerWidth,480)-80)/4)-8,op=[],lock=false,found=0,mv=0;
+I.textContent='Level '+lv+'  ·  Chaal 0';g.style.gridTemplateColumns='repeat(4,'+sz+'px)';g.innerHTML='';
+d.forEach(function(e){var b=document.createElement('button');b.className='cell';b.style.height=sz+'px';b.style.fontSize=Math.floor(sz*.5)+'px';b.setAttribute('aria-label','Card');
+b.onclick=function(){if(lock||b.dataset.d||op.indexOf(b)>-1)return;b.textContent=e;b.style.background='var(--card)';b.style.boxShadow='inset 0 0 0 3px var(--g2)';op.push(b);
+if(op.length===2){mv++;I.textContent='Level '+lv+'  ·  Chaal '+mv;var x=op[0],y=op[1];
+if(x.textContent===y.textContent){x.dataset.d=1;y.dataset.d=1;op=[];found++;if(found===p){best('match',lv);I.textContent='Level '+lv+' clear! 🎉 ('+mv+' chaal)';lv++;to(rd,1400)}}
+else{lock=true;to(function(){x.textContent='';y.textContent='';x.style.background='';y.style.background='';x.style.boxShadow='';y.style.boxShadow='';op=[];lock=false},700)}}};
+g.appendChild(b)})}
+rd()}
+
+function ord(el){var lv=1;el.innerHTML='<p class="m" id="i" style="text-align:center;font-weight:700;font-size:17px;color:var(--ink)"></p><div class="grid" id="g"></div>';
+var I=el.querySelector('#i'),g=el.querySelector('#g');
+function rd(){var n=Math.min(25,3+lv*2),nx=1,t0=performance.now(),a=[];for(var k=1;k<=n;k++)a.push(k);a.sort(function(){return Math.random()-.5});
+var cols=n<=9?3:n<=16?4:5,sz=Math.min(90,Math.floor((Math.min(window.innerWidth,480)-80)/cols)-8);
+I.textContent='Level '+lv+': 1 se '+n+' tak order mein tap karo';g.style.gridTemplateColumns='repeat('+cols+','+sz+'px)';g.innerHTML='';
+a.forEach(function(v){var b=document.createElement('button');b.className='cell';b.style.height=sz+'px';b.style.fontSize='24px';b.textContent=v;b.setAttribute('aria-label','Number '+v);
+b.onclick=function(){if(v===nx){b.disabled=true;b.style.opacity='.25';nx++;if(nx>n){best('ord',lv);I.textContent='Level '+lv+' clear! '+((performance.now()-t0)/1000).toFixed(1)+'s 🎉';lv++;to(rd,1400)}}else{b.style.background='#e53935';to(function(){b.style.background=''},250)}};g.appendChild(b)})}
+rd()}
+
+function pat(el){var seq=[],idx=0,inp=false;el.innerHTML='<p class="m" id="i" style="text-align:center;font-weight:700;font-size:17px;color:var(--ink)">Taiyaar ho jao…</p><div class="grid" style="grid-template-columns:repeat(3,92px)"></div>';
+var g=el.querySelector('.grid'),I=el.querySelector('#i'),cells=[];
+for(var k=0;k<9;k++){(function(k){var b=document.createElement('button');b.className='cell';b.style.height='92px';b.setAttribute('aria-label','Dabba '+(k+1));b.onclick=function(){tap(k)};cells.push(b);g.appendChild(b)})(k)}
+function fl(k,c){cells[k].style.background=c||'var(--acc)';to(function(){cells[k].style.background=''},350)}
+function nx(){seq.push(Math.floor(Math.random()*9));inp=false;I.textContent='Level '+seq.length+': dhyan se dekho';seq.forEach(function(c,k){to(function(){fl(c)},500+600*k)});to(function(){inp=true;idx=0;I.textContent='Ab tum dohrao'},600*seq.length+700)}
+function tap(k){if(!inp)return;if(k===seq[idx]){fl(k,'#4caf50');idx++;if(idx===seq.length){inp=false;best('seq',seq.length);I.textContent='Level '+seq.length+' clear! 🎉';to(nx,1000)}}else{inp=false;fl(k,'#e53935');I.textContent='Galat! Level '+seq.length+' tak pahunche. Dobara…';seq=[];to(nx,1500)}}
+to(nx,800)}
+
+function mth(el){var sc=0,ans=0,t=30;el.innerHTML='<p class="m" id="i" style="font-weight:700;font-size:17px;color:var(--ink)"></p><div class="big" id="q"></div><div class="opts" id="o"></div>';
+var I=el.querySelector('#i'),Q=el.querySelector('#q'),O=el.querySelector('#o'),over=false;
+function ask(){var l=Math.floor(sc/4)+1,m=8+l*6,a=2+Math.floor(Math.random()*(m-2)),b=2+Math.floor(Math.random()*(m-2)),op=Math.floor(Math.random()*(l>2?3:2)),tx;
+if(op===0){tx=a+' + '+b;ans=a+b}else if(op===1){tx=(a+b)+' − '+b;ans=a}else{var x=2+Math.floor(Math.random()*(4+l)),y=2+Math.floor(Math.random()*8);tx=x+' × '+y;ans=x*y}
+Q.textContent=tx+' = ?';var s={};s[ans]=1;while(Object.keys(s).length<4)s[ans+Math.floor(Math.random()*19)-9]=1;
+var l2=Object.keys(s).sort(function(){return Math.random()-.5});O.innerHTML=l2.map(function(v){return'<button class="btn" data-v="'+v+'">'+v+'</button>'}).join('')}
+O.onclick=function(e){var v=e.target.dataset.v;if(v===undefined||over)return;if(+v===ans)sc++;else sc=Math.max(0,sc-1);ask()};
+function start(){sc=0;t=30;over=false;ask();var iv=setInterval(function(){t--;I.textContent='Score '+sc+'   |   '+t+'s';if(t<=0){clearInterval(iv);over=true;best('math',sc);Q.innerHTML='Time up!<br>Score: '+sc;O.innerHTML='<button class="btn" style="grid-column:1/3" id="ag">Dobara khelo</button>';el.querySelector('#ag').onclick=start}},1000);ivs.push(iv);I.textContent='Score 0   |   30s'}
+start()}
+
+function numg(el){var lv=3;el.innerHTML='<p class="m" id="i" style="font-weight:700;font-size:17px;color:var(--ink)"></p><div id="a" style="text-align:center"></div>';var I=el.querySelector('#i'),A=el.querySelector('#a');
+function show(){var n='';for(var k=0;k<lv;k++)n+=Math.floor(Math.random()*10);I.textContent='Level '+(lv-2)+': ye number yaad karo';A.innerHTML='<div class="big">'+n+'</div>';to(function(){ask(n)},900+lv*450)}
+function ask(n){I.textContent='Ab number likho';A.innerHTML='<input class="n" id="e" type="tel" inputmode="numeric" placeholder="?" aria-label="Number"><button class="btn" id="c">Check</button>';var e=A.querySelector('#e');e.focus();
+A.querySelector('#c').onclick=function(){if(e.value===n){best('num',lv-2);lv++;I.textContent='Sahi! 🎉';A.innerHTML='';to(show,900)}else{I.textContent='Galat. Number tha '+n;lv=Math.max(3,lv-1);A.innerHTML='';to(show,1800)}}}
+to(show,300)}
+
+function odd(el){var lv=1;el.innerHTML='<p class="m" id="i" style="text-align:center;font-weight:700;font-size:17px;color:var(--ink)"></p><div class="grid" id="g"></div>';var I=el.querySelector('#i'),g=el.querySelector('#g');
+function rd(){I.textContent='Level '+lv+': alag rang wala dabba dabao';var n=Math.min(7,2+Math.floor(lv/2)),h=Math.floor(Math.random()*360),d=Math.max(5,30-lv*2),oi=Math.floor(Math.random()*n*n),sz=Math.floor((Math.min(window.innerWidth,480)-64)/n)-8;
+g.style.gridTemplateColumns='repeat('+n+','+sz+'px)';g.innerHTML='';
+for(var k=0;k<n*n;k++){(function(k){var b=document.createElement('button');b.className='cell';b.style.height=sz+'px';b.style.borderRadius='8px';b.style.background='hsl('+h+',55%,'+(k===oi?55-d*0.5:55)+'%)';b.setAttribute('aria-label','Dabba');
+b.onclick=function(){if(k===oi){best('odd',lv);lv++;rd()}else{I.textContent='Galat! Level '+lv+' dobara';to(rd,600)}};g.appendChild(b)})(k)}}
+rd()}
+
+function rea(el){var st=0,t0=0,tk=0;el.innerHTML='<p class="m" id="i" style="font-weight:700;font-size:17px;color:var(--ink)">'+(S.best.react?'Best: '+S.best.react+' ms':'Hara hote hi tap karo')+'</p><div class="pad2" id="p" role="button" tabindex="0">Shuru karne ke liye tap karo</div>';
+var I=el.querySelector('#i'),P=el.querySelector('#p');
+function tap(){if(st===0){st=1;tk++;var my=tk;P.textContent='Ruko…';P.style.background=getComputedStyle(document.documentElement).getPropertyValue('--bad');to(function(){if(st===1&&my===tk){st=2;t0=performance.now();P.textContent='ABHI TAP KARO!';P.style.background='#2e7d32'}},1500+Math.random()*2500)}
+else if(st===1){tk++;st=0;P.textContent='Bahut jaldi! Dobara tap karo';P.style.background=''}
+else{var ms=Math.round(performance.now()-t0);st=0;best('react',ms,true);P.innerHTML=ms+' ms<br>Dobara tap karo';P.style.background='';I.textContent='Best: '+S.best.react+' ms'}}
+P.onclick=tap;P.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tap()}}}
+
+go(0);
+</script>
+</body>
+</html>
